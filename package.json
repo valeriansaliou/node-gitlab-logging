@@ -1,0 +1,27 @@
+{
+  "name": "gitlab-logging",
+  "description": "A logging handler for NodeJS that opens GitLab issues on provided exception.",
+  "version": "0.1",
+  "homepage": "https://github.com/valeriansaliou/node-gitlab-logging",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/valeriansaliou/node-gitlab-logging.git"
+  },
+
+  "author": {
+    "name": "Valerian Saliou",
+    "url": "https://valeriansaliou.name/"
+  },
+
+  "main": "gitlab-logging.js",
+
+  "engines": {
+    "node": ">=0.8.0"
+  },
+
+  "dependencies": {
+    "loglevel": "0.5.0",
+    "node-gitlab": "0.1.0"
+  }
+}
