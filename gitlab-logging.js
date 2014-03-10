@@ -62,6 +62,6 @@ exports.handle = function(error) {
     });
 
     if(gitlab_client !== null && error) {
-        helpers.engage(gitlab_client, error, OPTIONS);
+        helpers.__engage(gitlab_client, error, OPTIONS);
     }
 };
