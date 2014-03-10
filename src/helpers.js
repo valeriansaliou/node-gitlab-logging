@@ -23,7 +23,7 @@ function __checksum(error) {
 
 
 // Process issue data
-function __data(error, environment, checksum) {
+function __data(error, options, checksum) {
     const FN = '[' + NS + '.__data' + ']';
 
     var description = {
@@ -33,7 +33,7 @@ function __data(error, environment, checksum) {
 
     var data = {};
 
-    data.title = ('[ERROR@' + environment + '] Events Server Exception (' + checksum + ')');
+    data.title = ('[ERROR@' + options.environment + '] Events Server Exception (' + checksum + ')');
     data.description = description.head + '\n\n---\n\n' + description.trace;
 
     return data;    
@@ -140,7 +140,7 @@ function __handle_create(error, row) {
 
 
 // Engages the issue opening process
-exports.__engage = function(gitlab_client, error, environment, options) {
+exports.__engage = function(gitlab_client, error, options) {
     const FN = '[' + NS + '.__engage' + ']';
 
     try {
@@ -150,7 +150,7 @@ exports.__engage = function(gitlab_client, error, environment, options) {
         var checksum = __checksum(error);
 
         // Process issue data
-        var issue_data = __data(error, environment, checksum);
+        var issue_data = __data(error, options, checksum);
 
         // Check if issue already exists
         gitlab_client.issues.list({

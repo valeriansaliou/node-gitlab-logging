@@ -19,6 +19,28 @@ const node_gitlab = require('node-gitlab');
 const helpers = require('./src/helpers');
 
 
+// Globals
+var OPTIONS = null;
+
+
+// Configures options
+exports.configure = function(options) {
+    if(options.token === undefined || options.host === undefined ||
+       options.project_id === undefined || options.assignee_id === undefined) {
+        log.error(FN, 'A required argument is missing, not saving configuration');
+        return false;
+    }
+
+    if(options.environment === null) {
+        options.environment = process.env.NODE_ENV || 'development';
+    }
+
+    OPTIONS = options;
+
+    return true;
+};
+
+
 // Sets log level
 exports.set_loglevel = function(level) {
     log.setLevel(level);
@@ -26,21 +48,20 @@ exports.set_loglevel = function(level) {
 
 
 // Handles an incoming error stacktrace
-exports.handle = function(error, environment, options) {
+exports.handle = function(error) {
     const FN = '[' + NS + '.handle' + ']';
 
-    if(options.token === undefined || options.host === undefined ||
-       options.project_id === undefined || options.assignee_id === undefined) {
-        log.error(FN, 'Missing options, aborting!');
+    if(OPTIONS === null) {
+        log.error(FN, 'Please configure the module before using it! Usage: configure(options)');
         return;
     }
 
     const gitlab_client = node_gitlab.create({
-        api: url.resolve(options.host, '/api/v3'),
-        privateToken: options.token
+        api: url.resolve(OPTIONS.host, '/api/v3'),
+        privateToken: OPTIONS.token
     });
 
     if(gitlab_client !== null && error) {
-        helpers.engage(gitlab_client, error, environment, options);
+        helpers.engage(gitlab_client, error, OPTIONS);
     }
 };
