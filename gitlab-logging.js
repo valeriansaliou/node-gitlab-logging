@@ -11,6 +11,7 @@ const NS = 'gitlab-logging';
 
 // Import libs
 const log = require('loglevel');
+const url = require('url');
 const node_gitlab = require('node-gitlab');
 
 

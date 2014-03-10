@@ -11,7 +11,6 @@ const NS = 'gitlab-logging/helpers';
 
 // Import libs
 const log = require('loglevel');
-const url = require('url');
 const crypto = require('crypto');
 
 
