@@ -162,4 +162,4 @@ exports.__engage = function(gitlab_client, error, environment, options) {
     } catch(_e) {
         log.error(FN, _e);
     }
-}
+};
