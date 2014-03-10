@@ -20,7 +20,7 @@ Node GitLab Logging is smart enough to recognize similar errors, thus not openin
 ```javascript
 gitlab_logging = require('gitlab-logging');
 
-# GitLab options
+/* GitLab options */
 gitlab_logging.configure({
     // Required
     host: 'https://gitlab.server.tld',
