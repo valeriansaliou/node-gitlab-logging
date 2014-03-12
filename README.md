@@ -13,7 +13,7 @@ Node GitLab Logging is smart enough to recognize similar errors, thus not openin
 
 ## Setup
 
-* Add `node-gitlab-logging` to your package.json dependencies.
+* Add `gitlab-logging` to your package.json dependencies.
 
 * Then, require and configure the module using the code below:
 
