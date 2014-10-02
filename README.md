@@ -8,7 +8,7 @@ Useful for production deployments, where you want to track the issues directly f
 Node GitLab Logging is smart enough to recognize similar errors, thus not opening blindly a new issue everytime.
 
 
-[![build status](https://ci.frenchtouch.pro/projects/14/status.png?ref=master)](https://ci.frenchtouch.pro/projects/14?ref=master)
+[![build status](https://ci.hakuma.holdings/projects/14/status.png?ref=master)](https://ci.hakuma.holdings/projects/14?ref=master)
 
 
 ## Setup
