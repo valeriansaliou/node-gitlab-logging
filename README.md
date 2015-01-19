@@ -51,10 +51,11 @@ process.on('uncaughtException', function(error) {
     console.error('uncaughtException', error_message);
 
     // Pipe error to GitLab
-    gitlab.handle(error_message);
-
-    // Recommended: kill the NodeJS process (restart a clean one via forever)
-    process.exit(1);
+    gitlab.handle(error_message, function() {
+        // Recommended: kill the NodeJS process (restart a clean one via forever)
+        // The process is killed after the issue gets opened (respectfully of network delays)
+        process.exit(1);
+    });
 });
 ```
 

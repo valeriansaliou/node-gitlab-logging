@@ -48,7 +48,7 @@ exports.set_loglevel = function(level) {
 
 
 // Handles an incoming error stacktrace
-exports.handle = function(error) {
+exports.handle = function(error, callback) {
     const FN = '[' + NS + '.handle' + ']';
 
     if(OPTIONS === null) {
@@ -62,6 +62,6 @@ exports.handle = function(error) {
     });
 
     if(gitlab_client !== null && error) {
-        helpers.__engage(gitlab_client, error, OPTIONS);
+        helpers.__engage(gitlab_client, error, OPTIONS, callback);
     }
 };

@@ -36,17 +36,21 @@ function __data(error, options, checksum) {
     data.title = ('[ERROR@' + options.environment + '] Events Server Exception (' + checksum + ')');
     data.description = description.head + '\n\n---\n\n' + description.trace;
 
-    return data;    
+    return data;
 }
 
 
 // Handles project list from GitLab
-function __handle_list(gitlab_client, options, error, issues, issue_data) {
+function __handle_list(gitlab_client, options, error, issues, issue_data, callback) {
     const FN = '[' + NS + '.__handle_list' + ']';
 
     try {
         if(error !== null) {
             log.error(FN, 'Could not list issues from GitLab');
+
+            if(typeof callback == 'function') {
+                callback();
+            }
         } else {
             var existing_issue_id = null;
             var existing_issue_state = null;
@@ -62,12 +66,16 @@ function __handle_list(gitlab_client, options, error, issues, issue_data) {
 
             if(existing_issue_id !== null) {
                 if(existing_issue_state !== 'opened') {
-                    __reopen(gitlab_client, options, existing_issue_id);
+                    __reopen(gitlab_client, options, existing_issue_id, callback);
                 } else {
-                    log.info(FN, 'Issue exists and is already opened, not re-opening');
+                    log.info(FN, 'Issue existsnd a is already opened, not re-opening');
+
+                    if(typeof callback == 'function') {
+                        callback();
+                    }
                 }
             } else {
-                __create(gitlab_client, options, issue_data);
+                __create(gitlab_client, options, issue_data, callback);
             }
         }
     } catch(_e) {
@@ -77,7 +85,7 @@ function __handle_list(gitlab_client, options, error, issues, issue_data) {
 
 
 // Reopens a closed issue
-function __reopen(gitlab_client, options, existing_issue_id) {
+function __reopen(gitlab_client, options, existing_issue_id, callback) {
     const FN = '[' + NS + '.__reopen' + ']';
 
     gitlab_client.issues.update({
@@ -86,13 +94,13 @@ function __reopen(gitlab_client, options, existing_issue_id) {
         description: 'Reopened from backend because the exception happened once again.',
         state_event: 'reopen'
     }, function(error, row) {
-        __handle_reopen(error, row);
+        __handle_reopen(error, row, callback);
     });
 }
 
 
 // Handles the reopening response
-function __handle_reopen(error, row) {
+function __handle_reopen(error, row, callback) {
     const FN = '[' + NS + '.__handle_reopen' + ']';
 
     try {
@@ -101,6 +109,10 @@ function __handle_reopen(error, row) {
         } else {
             log.info(FN, 'Re-opened existing issue on GitLab');
         }
+
+        if(typeof callback == 'function') {
+            callback();
+        }
     } catch(_e) {
         log.error(FN, _e);
     }
@@ -108,7 +120,7 @@ function __handle_reopen(error, row) {
 
 
 // Creates a new issue
-function __create(gitlab_client, options, issue_data) {
+function __create(gitlab_client, options, issue_data, callback) {
     const FN = '[' + NS + '.__create' + ']';
 
     gitlab_client.issues.create({
@@ -118,13 +130,13 @@ function __create(gitlab_client, options, issue_data) {
         assignee_id: options.assignee_id,
         labels: 'node, error, bug'
     }, function(error, row) {
-        __handle_create(error, row);
+        __handle_create(error, row, callback);
     });
 }
 
 
 // Handles the creation response
-function __handle_create(error, row) {
+function __handle_create(error, row, callback) {
     const FN = '[' + NS + '.__handle_create' + ']';
 
     try {
@@ -133,6 +145,10 @@ function __handle_create(error, row) {
         } else {
             log.info(FN, 'Opened issue on GitLab');
         }
+
+        if(typeof callback == 'function') {
+            callback();
+        }
     } catch(_e) {
         log.error(FN, _e);
     }
@@ -140,7 +156,7 @@ function __handle_create(error, row) {
 
 
 // Engages the issue opening process
-exports.__engage = function(gitlab_client, error, options) {
+exports.__engage = function(gitlab_client, error, options, callback) {
     const FN = '[' + NS + '.__engage' + ']';
 
     try {
@@ -156,7 +172,7 @@ exports.__engage = function(gitlab_client, error, options) {
         gitlab_client.issues.list({
             id: options.project_id
         }, function(error, issues) {
-            __handle_list(gitlab_client, options, error, issues, issue_data);
+            __handle_list(gitlab_client, options, error, issues, issue_data, callback);
         });
     } catch(_e) {
         log.error(FN, _e);
