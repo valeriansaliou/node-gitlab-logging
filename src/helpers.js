@@ -92,15 +92,14 @@ function __handle_list(gitlab_client, options, error, issues, issue_data, callba
 function __reopen(gitlab_client, options, existing_issue_id, callback) {
     const FN = '[' + NS + '.__reopen' + ']';
 
-    gitlab_client.issues.edit(
-        options.project_id,
-        existing_issue_id, {
-            description: 'Reopened from backend because the exception happened once again.',
-            state_event: 'reopen'
-        }, function(error, row) {
-            __handle_reopen(error, row, callback);
-        }
-    );
+    gitlab_client.issues.update({
+        id: options.project_id,
+        issue_id: existing_issue_id,
+        description: 'Reopened from backend because the exception happened once again.',
+        state_event: 'reopen'
+    }, function(error, row) {
+        __handle_reopen(error, row, callback);
+    });
 }
 
 
@@ -132,16 +131,15 @@ function __handle_reopen(error, row, callback) {
 function __create(gitlab_client, options, issue_data, callback) {
     const FN = '[' + NS + '.__create' + ']';
 
-    gitlab_client.issues.create(
-        options.project_id, {
-            title: issue_data.title,
-            description: issue_data.description,
-            assignee_id: options.assignee_id,
-            labels: 'node, error, bug'
-        }, function(error, row) {
-            __handle_create(error, row, callback);
-        }
-    );
+    gitlab_client.issues.create({
+        id: options.project_id,
+        title: issue_data.title,
+        description: issue_data.description,
+        assignee_id: options.assignee_id,
+        labels: 'node, error, bug'
+    }, function(error, row) {
+        __handle_create(error, row, callback);
+    });
 }
 
 
@@ -183,8 +181,8 @@ exports.__engage = function(gitlab_client, error, options, callback) {
         var issue_data = __data(error, options, checksum);
 
         // Check if issue already exists
-        gitlab_client.issues.all({
-            project_id: options.project_id
+        gitlab_client.issues.list({
+            id: options.project_id
         }, function(error, issues) {
             __handle_list(gitlab_client, options, error, issues, issue_data, callback);
         });
