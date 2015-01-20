@@ -25,6 +25,8 @@ var OPTIONS = null;
 
 // Configures options
 exports.configure = function(options) {
+    const FN = '[' + NS + '.configure' + ']';
+
     if(options.token === undefined || options.host === undefined ||
        options.project_id === undefined || options.assignee_id === undefined) {
         log.error(FN, 'A required argument is missing, not saving configuration');
@@ -43,6 +45,8 @@ exports.configure = function(options) {
 
 // Sets log level
 exports.set_loglevel = function(level) {
+    const FN = '[' + NS + '.set_loglevel' + ']';
+
     log.setLevel(level);
 };
 
