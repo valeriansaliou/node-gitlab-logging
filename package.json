@@ -1,7 +1,7 @@
 {
   "name": "gitlab-logging",
   "description": "A logging handler for NodeJS that opens GitLab issues on provided exception.",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "homepage": "https://github.com/valeriansaliou/node-gitlab-logging",
 
   "repository": {
