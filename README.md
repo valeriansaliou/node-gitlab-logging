@@ -1,6 +1,8 @@
 Node GitLab Logging
 ===================
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/valeriansaliou/node-gitlab-logging?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Node GitLab Logging is a custom log handler that has been written with the purpose of auto-opening (and assigning) issues on GitLab everytime something goes south with NodeJS code.
 
 Useful for production deployments, where you want to track the issues directly from GitLab, not from a dark server log file.
