@@ -10,7 +10,7 @@ Useful for production deployments, where you want to track the issues directly f
 Node GitLab Logging is smart enough to recognize similar errors, thus not opening blindly a new issue everytime.
 
 
-[![build status](https://ci.hakuma.holdings/projects/14/status.png?ref=master)](https://ci.hakuma.holdings/projects/14?ref=master)
+[![Build Status](https://semaphoreci.com/api/v1/projects/e093091b-6579-41fb-9557-37adbb2c872f/375997/shields_badge.svg)](https://semaphoreci.com/valeriansaliou/node-gitlab-logging)
 
 
 ## Setup
