@@ -27,7 +27,7 @@ function __data(error, options, checksum) {
     const FN = '[' + NS + '.__data' + ']';
 
     var description = {
-        head: '#### :high_voltage_sign: Note: this issue has been automatically opened.',
+        head: '#### Note: this issue has been automatically opened.',
         trace: '```javascript\n' + error + '\n```'
     };
 
