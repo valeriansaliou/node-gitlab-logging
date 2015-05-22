@@ -1,16 +1,16 @@
-Node GitLab Logging
+node-gitlab-logging
 ===================
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/valeriansaliou/node-gitlab-logging?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Node GitLab Logging is a custom log handler that has been written with the purpose of auto-opening (and assigning) issues on GitLab everytime something goes south with NodeJS code.
+node-gitlab-logging is a custom log handler that has been written with the purpose of auto-opening (and assigning) issues on GitLab everytime something goes south with NodeJS code.
 
 Useful for production deployments, where you want to track the issues directly from GitLab, not from a dark server log file.
 
-Node GitLab Logging is smart enough to recognize similar errors, thus not opening blindly a new issue everytime.
+node-gitlab-logging is smart enough to recognize similar errors, thus not opening blindly a new issue everytime.
 
 
-[![build status](https://ci.hakuma.holdings/projects/14/status.png?ref=master)](https://ci.hakuma.holdings/projects/14?ref=master)
+[![Build Status](https://travis-ci.org/valeriansaliou/node-gitlab-logging.svg?branch=master)](https://travis-ci.org/valeriansaliou/node-gitlab-logging)
 
 
 ## Setup
@@ -65,6 +65,6 @@ process.on('uncaughtException', function(error) {
 
 ## Notes
 
-* This module is kept up-to-date with latest GitLab API changes. Thus, ensure you're running the latest GitLab version in time when using Node GitLab Logging!
+* This module is kept up-to-date with latest GitLab API changes. Thus, ensure you're running the latest GitLab version in time when using node-gitlab-logging!
 
-* Node GitLab Logging has been built by the happy folks at [Waaave Network](https://waaave.com/), for their website needs.
+* node-gitlab-logging has been built by the happy folks at [Waaave Network](https://waaave.com/), for their website needs.
